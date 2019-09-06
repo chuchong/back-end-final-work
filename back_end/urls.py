@@ -15,14 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from task import views
+from django.contrib.auth.views import LogoutView
+from task.views import TaskListView, TaskCreateOrUpdateView, TaskDetailView
+from accounts.views import UserRegistrationView, UserLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # as_view() 初始化view class,返回句柄
-    path('task/', views.TaskListView.as_view()),
-    path('task/create/', views.TaskCreateOrUpdateView.as_view()),
-    path('task/<task_id>/', views.TaskDetailView.as_view()),
-    path('task/<task_id>/update/', views.TaskCreateOrUpdateView.as_view()),
+    path('task/', TaskListView.as_view()),
+    path('task/create/', TaskCreateOrUpdateView.as_view()),
+    path('task/<task_id>/', TaskDetailView.as_view()),
+    path('task/<task_id>/update/', TaskCreateOrUpdateView.as_view()),
+
+    path('user/create/', UserRegistrationView.as_view()),
+    path('user/login/', UserLoginView.as_view()),
+    path('user/logout/', LogoutView.as_view())
 ]

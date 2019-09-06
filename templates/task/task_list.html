@@ -3,7 +3,6 @@
 {% block title %}<title>任务列表</title>{% endblock title %}
 
 {% block css %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <style type="text/css">
     tbody > tr {cursor: pointer;}
 </style>
@@ -12,28 +11,31 @@
 
 {% block content %}
 
-{% if messages %}                            <!-- message 框架 -->
-{% for message in messages %}
-<div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
-  {{ message }}
-</div>
-{% endfor %}
-{% endif %}
-
 <!-- .table-hover鼠标经过加深， .table-responsive 根据屏幕大小拉伸 -->
 <table class="table table-hover table-responsive">
     <thead>
         <th>序号</th><th>标题</th><th>用户</th>
     </thead>
     <tbody>
-        {% for tk in tasks %}
+        {% for tk in task_list %}
         <tr onclick="location.href='/task/{{ tk.pk }}/'">   <!--点击跳转至详细信息url -->
             <td>{{ tk.pk }}</td><td>{{ tk.title }}</td><td>{{ tk.user }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+    <!-- 点击按钮时 跳转url -->
+    <a href="/task/create/"><button class="btn btn-primary" type="button">新建任务</button></a>
 
-<!-- 点击按钮时 跳转url -->
-<a href="/task/create/"><button class="btn btn-primary" type="button">新建任务</button></a>
+<div class="text-center">
+    {% if is_paginated %}
+        <div class="pagination pagination-lg">
+            {% for pg in page_obj.paginator.page_range %}
+                <li><a href="{{ request.path }}?page={{ pg }}">{{ pg }}</a></li>
+            {% endfor %}
+        </div>
+    {% endif %}
+<div class='text-center'>
+
+</div>
 {% endblock content %}

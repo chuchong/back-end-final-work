@@ -1,29 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from task.models import Task
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from back_end import settings
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
 
 # 任务列表
-class TaskListView(TemplateView):
-    # templates文件夹的默认寻找template_name文件名为模板
-    template_name = 'task_list.html'
-    # 请求内容
-    def get(self, request, *args, **kwargs):
-        # 所有任务
-        queryset = Task.objects.all()
-        ctx = {
-            'tasks': queryset
-        }
-        # from generic views
-        # 把模板转换成html, ctx要词典变量
-        return self.render_to_response(ctx)
+class TaskListView(ListView):
+    model = Task
+    queryset = None
+    paginate_by = 5
+
+    def get_queryset(self):
+        if not self.queryset:
+            self.queryset = Task.objects.all()
+        return self.queryset
 
 # 任务详细信息
 class TaskDetailView(TemplateView):
-    template_name = 'task_detail.html'
+    # templates文件夹的默认寻找template_name文件名为模板
+    # template_name = 'task_list.html'
+    template_name = 'task/task_detail.html'
     queryset = Task.objects.all()
     pk_url_kwargs = 'task_id'
 
@@ -46,10 +46,12 @@ class TaskDetailView(TemplateView):
 
 # @method_decorator(csrf_exempt, name='dispatch')  # 无视 CSRF 验证
 # 添加任务 或 更新任务
-class TaskCreateOrUpdateView(TemplateView):
-    template_name = 'task_update.html'
+# LoginRequiredMixin 需要登录时，跳转到login_url的模块
+class TaskCreateOrUpdateView(LoginRequiredMixin, TemplateView):
+    template_name = 'task/task_update.html'
     queryset = Task.objects.all()
     pk_url_kwargs = 'task_id'
+    login_url = settings.LOGIN_URL
     success_message = '任务保存成功'
 
     def get_object(self, queryset=None):
