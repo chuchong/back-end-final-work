@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        {% block title %}
+        <title>Final Work</title>
+        {% endblock title %}
+
+        {% block meta %}
+        {% endblock meta %}
+
+        {% block scripts %}
+        {% endblock scripts %}
+
+        {% block css %}
+        {% endblock css %}
+    </head>
+
+    <body>
+    {% block content %}
+    view: {{ view }}    <!-- ctx['view'] -->
+    <br>
+    data: {{ data }}    <!-- ctx['data'] -->
+    {% endblock content %}
+    </body>
+</html>
