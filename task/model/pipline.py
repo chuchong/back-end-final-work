@@ -96,6 +96,7 @@ def drawRectBox(image,rect,addText):
     img = Image.fromarray(image)
     draw = ImageDraw.Draw(img)
     #draw.text((int(rect[0]+1), int(rect[1]-16)), addText.decode("utf-8"), (255, 255, 255), font=fontC)
+    fontC = ImageFont.truetype(os.path.join(settings.MODEL_DIR, "platech.ttf"), 14, 0);
     draw.text((int(rect[0]+1), int(rect[1]-16)), addText, (255, 255, 255), font=fontC)
     imagex = np.array(img)
 
