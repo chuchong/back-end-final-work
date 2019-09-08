@@ -25,20 +25,13 @@ class Task(models.Model):
     width_field = models.IntegerField(default=0)
     created_at = models.DateTimeField('生成时间', auto_now_add=True)
 
-    def __init__(self, *args, **kargs):
-        super(Task, self).__init__(*args, **kargs)
-        self.convert_image()
-
-
 
     # 调用图片处理算法
     def convert_image(self):
-        # todo: change -> self.converted_image = ###
-        if self.image:
-            handle(self.image.path)
-            self.converted_image1 = self.image.name + '__1.jpg'
-            self.converted_image2 = self.image.name + '__2.jpg'
-
+        handle(self.image.path)
+        self.converted_image1 = self.image.name + '__1.jpg'
+        self.converted_image2 = self.image.name + '__2.jpg'
+        self.save()
 
 
     def delete(self, *args, **kargs):
