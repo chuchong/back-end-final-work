@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from task.views import TaskListView, TaskCreateOrUpdateView, TaskDetailView
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from task.views import TaskListView, TaskCreateOrUpdateView, TaskDetailView, TaskDeleteView
 from accounts.views import UserRegistrationView, UserLoginView
+from back_end import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +30,13 @@ urlpatterns = [
     path('task/create/', TaskCreateOrUpdateView.as_view()),
     path('task/<task_id>/', TaskDetailView.as_view()),
     path('task/<task_id>/update/', TaskCreateOrUpdateView.as_view()),
+    path('task/<pk>/delete/', TaskDeleteView.as_view()),
 
     path('user/create/', UserRegistrationView.as_view()),
     path('user/login/', UserLoginView.as_view()),
     path('user/logout/', LogoutView.as_view())
 ]
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

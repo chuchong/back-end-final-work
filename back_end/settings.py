@@ -127,3 +127,6 @@ LOGIN_REDIRECT_URL = '/task/'
 LOGIN_URL = '/user/login/'
 
 LOGOUT_REDIRECT_URL = '/user/login/'
+
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')

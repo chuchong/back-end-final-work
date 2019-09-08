@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>任务信息 - {{ task.pk }}. {{ task.title }}</title>{% endblock title %}
+
+{% block content %}
+<div class="text-center">
+<form action='.' method='post'>
+    {% csrf_token %}
+    <h1>确定要删除此 "{{ object.title }}" 任务码？</h1>
+    <p>
+        <button class="btn btn-primary" type="submit">是</button>
+        <a href="../"><button class="btn btn-primary" type="button">否</button></a>
+    </p>
+</form>
+</div>
+
+
+{% endblock content %}

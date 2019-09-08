@@ -20,7 +20,17 @@
 		<th>创建时间</th>
 		<td>{{ task.created_at | date:"Y-m-d H:i" }}</td>
 	</tr>
+    <tr>
+        <th>原始图片</th>
+        <td><img src="{{ task.image.url }}" alt="{{ task.title }}"></td>
+    </tr>
+    <tr>
+        <th>处理后图片</th>
+        <td><img src="{{ task.converted_image.url }}" alt="{{ task.title }}"></td>
+    </tr>
 </table>
-
-<a href="/task/{{ task.pk }}/update/"><button class="btn btn-primary" type="button">修改内容</button></a>
+<div>
+    <a href="/task/{{ task.pk }}/delete/"><button class="btn btn-primary" type="button">删除</button></a>
+    <a href="/task/{{ task.pk }}/update/"><button class="btn btn-primary" type="button">修改内容</button></a>
+</div>
 {% endblock content %}
