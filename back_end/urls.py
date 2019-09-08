@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
+from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from task.views import TaskListView, TaskCreateOrUpdateView, TaskDetailView, TaskDeleteView
@@ -26,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # as_view() 初始化view class,返回句柄
+    path('', RedirectView.as_view(url='task/')),
     path('task/', TaskListView.as_view()),
     path('task/create/', TaskCreateOrUpdateView.as_view()),
     path('task/<task_id>/', TaskDetailView.as_view()),
