@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a1dc9457-49d2-4b6a-b3bd-986da5f2c31b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a1dc9457-49d2-4b6a-b3bd-986da5f2c31b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,8 +80,16 @@
       <workItem from="1567691134237" duration="17080000" />
       <workItem from="1567742979526" duration="8375000" />
       <workItem from="1567773025507" duration="7446000" />
-      <workItem from="1567843735328" duration="21292000" />
+      <workItem from="1567843735328" duration="22084000" />
     </task>
+    <task id="LOCAL-00001" summary="add image module">
+      <created>1567937295608</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1567937295609</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,5 +107,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add image module" />
+    <option name="LAST_COMMIT_MESSAGE" value="add image module" />
   </component>
 </project>
