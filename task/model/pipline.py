@@ -165,8 +165,8 @@ def SimpleRecognizePlateByE2E(image, type):
         # plate = cv2.cvtColor(plate, cv2.COLOR_RGB2GRAY)
         plate  =cv2.resize(plate,(136,36*2))
         model = e2e.e2e(type)
-        res,confidence = model.recognizeOne(origin_plate)
-        print("res",res)
+        # res,confidence = model.recognizeOne(origin_plate)
+        # print("res",res)
 
         t1 = time.time()
         ptype = td.SimplePredict(plate)
@@ -177,13 +177,11 @@ def SimpleRecognizePlateByE2E(image, type):
         image_rgb = fv.finemappingVertical(image_rgb)
         image_rgb = fv.finemappingVertical(image_rgb)
         cache.verticalMappingToFolder(image_rgb)
-        cv2.imwrite("./"+str(j)+".jpg",image_rgb)
+        # cv2.imwrite("./"+str(j)+".jpg",image_rgb)
         res,confidence = model.recognizeOne(image_rgb)
-        print(res,confidence)
+        print("res",res,confidence,rect)
         res_set.append([[],res,confidence])
-
-        if confidence>0.7:
-            image = drawRectBox(image, rect, res+" "+str(round(confidence,3)))
+        image = drawRectBox(image, rect, res+":"+str(round(confidence,3)))
     return image,res_set
 
 
