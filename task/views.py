@@ -105,16 +105,16 @@ class TaskCreateOrUpdateView(LoginRequiredMixin, TemplateView):
                 messages.error(self.request, '{}值为空!'.format(key), extra_tags='danger')
         # 若无 message 生成才执行
         if len(messages.get_messages(request)) == 0:
+            post_data['user'] = request.user
             # action 是 create
             if action == 'create':
-                post_data['user'] = request.user
                 task = Task.objects.create(**post_data)
                 task.convert_image()
                 messages.success(self.request, self.success_message)
             elif action == 'update':
                 task = self.get_object()
-                for key, value in post_data.items():
-                    setattr(task, key, value)
+                task.delete()
+                task = Task.objects.create(**post_data)
                 task.convert_image()
                 task.save()
                 messages.success(self.request, self.success_message)
