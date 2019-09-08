@@ -3,7 +3,7 @@ from keras import backend as K
 from keras.models import *
 from keras.layers import *
 from . import e2e
-
+import tensorflow as tf
 
 def ctc_lambda_func(args):
     y_pred, labels, input_length, label_length = args
@@ -30,5 +30,8 @@ def construct_model(model_path):
     x = Conv2D(len(e2e.chars)+1, (1, 1))(x)
     x = Activation('softmax')(x)
     base_model = Model(inputs=input_tensor, outputs=x)
+    # f = open(model_path, 'rb')
+    # raise Exception(f.read())
+
     base_model.load_weights(model_path)
     return base_model

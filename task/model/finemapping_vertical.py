@@ -7,6 +7,8 @@ import numpy as np
 import os
 from back_end import settings
 import cv2
+import tensorflow as tf
+
 
 def getModel():
     input = Input(shape=[16, 66, 3])  # change this shape to [None,None,3] to enable arbitraty shape input
@@ -27,7 +29,7 @@ def getModel():
 
 model = getModel()
 model.load_weights(os.path.join(settings.MODEL_DIR, "model12.h5"))
-
+graph = tf.get_default_graph()
 
 def getmodel():
     return model
@@ -61,33 +63,34 @@ def gettest_model():
 def finemappingVertical(image):
     resized = cv2.resize(image,(66,16))
     resized = resized.astype(np.float)/255
-    res= model.predict(np.array([resized]))[0]
-    print("keras_predict",res)
-    res  =res*image.shape[1]
-    res = res.astype(np.int)
-    H,T = res
-    H-=3
-    #3 79.86
-    #4 79.3
-    #5 79.5
-    #6 78.3
+    with graph.as_default():
+        res= model.predict(np.array([resized]))[0]
+        print("keras_predict",res)
+        res  =res*image.shape[1]
+        res = res.astype(np.int)
+        H,T = res
+        H-=3
+        #3 79.86
+        #4 79.3
+        #5 79.5
+        #6 78.3
 
 
-    #T
-    #T+1 80.9
-    #T+2 81.75
-    #T+3 81.75
+        #T
+        #T+1 80.9
+        #T+2 81.75
+        #T+3 81.75
 
 
 
-    if H<0:
-        H=0
-    T+=2;
+        if H<0:
+            H=0
+        T+=2;
 
-    if T>= image.shape[1]-1:
-        T= image.shape[1]-1
+        if T>= image.shape[1]-1:
+            T= image.shape[1]-1
 
-    image = image[0:35,H:T+2]
+        image = image[0:35,H:T+2]
 
-    image = cv2.resize(image, (int(136), int(36)))
-    return image
+        image = cv2.resize(image, (int(136), int(36)))
+        return image

@@ -11,7 +11,7 @@ import os
 from back_end import settings
 import cv2
 import numpy as np
-
+import tensorflow as tf
 
 plateType  = ["蓝牌","单层黄牌","新能源车牌","白色","黑色-港澳"]
 def Getmodel_tensorflow(nb_classes):
@@ -47,11 +47,15 @@ def Getmodel_tensorflow(nb_classes):
 
 model = Getmodel_tensorflow(5)
 model.load_weights(os.path.join(settings.MODEL_DIR, "plate_type.h5"))
+td_graph = tf.get_default_graph()
+
 # model.save("plate_type.h5")
 def SimplePredict(image):
     image = cv2.resize(image, (34, 9))
     image = image.astype(np.float) / 255
-    res = np.array(model.predict(np.array([image]))[0])
-    return res.argmax()
+    global td_graph
+    with td_graph.as_default():
+        res = np.array(model.predict(np.array([image]))[0])
+        return res.argmax()
 
 
