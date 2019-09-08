@@ -5,8 +5,18 @@ from task.models import Task
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from back_end import settings
+from .converter import handle
+
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
+'''
+def convert_image(self, task):
+    # todo: change -> self.converted_image = ###
+    task.converted_path = handle(self.image.path)
+    print(task.converted_path)
+    task.converted_image = "12.jpg"
+'''
+
 
 # 任务列表
 class TaskListView(LoginRequiredMixin, ListView):

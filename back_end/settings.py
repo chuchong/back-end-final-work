@@ -130,3 +130,6 @@ LOGOUT_REDIRECT_URL = '/user/login/'
 
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+
+MODEL_DIR = 'task/model/'
+MEDIA_DIR = ''
